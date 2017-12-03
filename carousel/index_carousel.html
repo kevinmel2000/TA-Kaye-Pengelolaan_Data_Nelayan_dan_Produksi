@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contoh Kaurosel</title>
+<meta content='Ilmu Detil' name='description'/>
+<meta content='Pusat Ilmu Secara Detil' name='keywords'/>
+<meta content='Informasi tentang Bootstrap' name='author'/>
+<meta content='All' name='robots'/>
+
+
+
+<link rel="stylesheet" href="bootstrap/css/bootstrap.css"/>
+<link rel="stylesheet" href="bootstrap/css/style.css"  />
+
+
+
+
+<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script  src="bootstrap/js/bootstrap.min.js"></script>
+<script  src="bootstrap/js/portfolio/setting.js"></script>
+
+<style type="text/css">
+.navbar-inverse {
+    background-color: #800040;
+    border-color: #080808;
+	font-size:18px;
+	
+	
+	
+}
+@font-size-h4:            ceil((@font-size-base * 1.25)); // ~18px
+.navbar-inverse .navbar-nav > li > a {
+    color: #F9F1F1;
+	
+}
+.nav {
+    padding-left: 40px;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+
+
+.carousel-inner .active.left { left: -25%; }
+.carousel-inner .next        { left:  25%; }
+.carousel-inner .prev		 { left: -25%; }
+.carousel-control 			 { width:  4%; }
+.carousel-control.left,.carousel-control.right {margin-left:115px;background-image:none;}
+
+header .navbar-collapse  ul.navbar-nav {
+    float: right;
+    margin-right: 0;
+}
+#wrapper {
+    width: 800px;
+    height: 250px;
+	margin:auto;
+	padding:auto;
+   
+    
+}
+ 
+ 
+
+</style>
+
+
+ 
+
+</head>
+<body>
+     <!-- Navigation -->
+	<header>
+    <div class="navbar navbar-inverse navbar-static-top marginBottom-0" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="#">
+			</a>
+			<h4 class="pull-right" style="color:#eee;padding-right:17px 0;">
+				Caurosel
+					
+			</h4>
+			
+			
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="@Url.Action("About", "Home")">
+                        <i class="glyphicon glyphicon-info-sign"></i> About
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Contact", "Home")">
+                        <i class="glyphicon glyphicon-phone"></i> Contact
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Strains")">
+                        <i class="glyphicon glyphicon-leaf"></i> Strains
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+</header>
+
+<div class="container">
+	   <div class ="row">
+		<div class="col-md-8 ">
+			
+		<div class="panel panel-primary">
+										<div class="panel-heading">Headline News</div>
+										
+										<!-- Slider News by Carousel -->
+										
+										<div id='myCarousel' class='carousel slide' data-ride='carousel'>
+										
+										<ol class='carousel-indicators'>
+										<?php
+											include "config/koneksi.php";
+											$query      = "select * from berita order by id desc limit 3";
+											$res        = mysql_query($query);
+											$count      =   mysql_num_rows($res);
+											$slides     ='';
+											$Indicators ='';
+											$counter    =0;
+											echo	"<li data-target='#myCarousel' data-slide-to='0'></li>";
+											echo    "<li data-target='#myCarousel' data-slide-to='1'></li>";
+											echo    "<li data-target='#myCarousel' data-slide-to='2'></li>";
+										?>		
+										</ol>
+										
+										
+													
+										<div class='carousel-inner'>
+										<?php
+										include "config/koneksi.php";
+											$query      = "select * from berita order by id desc limit 3";
+											$res        = mysql_query($query);
+											$count      =   mysql_num_rows($res);
+											while($c=mysql_fetch_array($res)){
+													
+													$judul  = $c['judul'];
+													$konten = $c['konten'];
+													$gbr    = $c['gambar'];
+													$artikel= substr($konten,0,200);
+													$spasi  =strrpos($artikel,' ');
+													$ringkas= substr($artikel,0,$spasi); // pemecah artikel
+												if($counter==0)
+												{
+													echo"<div class='item active'>";		 								
+													echo	"<a href=''>";
+													echo 		"<img src='img/$gbr'>";
+													echo	"</a>";
+													
+		
+													echo	"<div class='container'>";
+													
+													echo	"<div class='carousel-caption left-caption style='background-color:#EE0930'>";
+													echo		"<a href=''> <font color=#ffffffff style='font-family: Verdana,Arial,Helvetica,Georgia; font-size: 13px;'>";
+													echo			"<h5 class='text-left'>".$judul."</h5></font>";
+													echo	   "</a>";
+													echo		"<br>";
+													echo		"<p style='font-family: Verdana,Arial,Helvetica,Georgia; font-size: 10px; text-align: justify;'> ".$ringkas."</p>";
+													echo		"<br> ";
+													echo		"<p><a href=''>";
+													echo			"<h6 class='text-left'>Selengkapnya</b></h6>";
+													echo		"</p>";
+													echo   "</div>";
+													echo"</div>";
+													echo 	"</div>";
+												}
+												else
+												{
+													echo	"<div class='item'>";
+													
+													echo		"<a href=''>";
+													echo			"<img src='img/$gbr'>";
+													echo		"</a>";
+													
+		
+													echo		"<div class='container'>";
+													
+													echo		"<div class='carousel-caption left-caption style='background-color:#EE0930'>";
+													echo			"<a href=''> <font color=#ffffffff style='font-family: Verdana,Arial,Helvetica,Georgia; font-size: 13px;'><h5 class='text-left'>".$judul."</h5></font>
+															      </a>";
+													echo	  "<br>";
+													echo	  "<p style='font-family: Verdana,Arial,Helvetica,Georgia; font-size: 10px; text-align: justify;'> 
+																".$ringkas."</p>";
+													echo	"<br>";
+													echo	"<p><a href=''>
+																<h6 class='text-left'>Selengkapnya</b> </h6>
+															</p>";
+													echo	"</div>";
+										echo		"</div>";
+       									echo	"</div>";
+												}
+												$counter++;
+												}
+     				 	                   
+										echo"</div>";
+										echo	"<a class='left carousel-control' href='#myCarousel' data-slide='prev'>‹</a>";
+										echo	"<a class='right carousel-control' href='#myCarousel' data-slide='next'>&rsaquo;</a>";
+										 
+										echo"</div>";
+												 
+										echo"<!-- End Slider Caraousel-->";
+										?>
+   									</div></div>
+
+  </div>
+  
+</div>
+
+
+
+
+   
+
+
+
+	
+    
+    
+</body>
+</html>
